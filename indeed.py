@@ -56,6 +56,7 @@ for page in xrange(0, int(total_pages)):
     # results per page
     for r in response_pages.json()['results']:
         # print r
+        #for each result get the job url job summary
         response_job = requests.get(r['url'])
         soup = BeautifulSoup(response_job.text, 'html.parser')
         desc2 = soup.find('span', attrs={'id': 'job_summary'}).get_text()
@@ -63,6 +64,7 @@ for page in xrange(0, int(total_pages)):
         # print desc2
 
         # print desc2.encode('utf-8')
+        # append each result to pd and each job summary to the second to last column
         df = df.append(r, ignore_index=True)
         df.iloc[i,-2] = desc2
         i += 1
@@ -70,8 +72,8 @@ for page in xrange(0, int(total_pages)):
 
         # writer.writerow(dict((k, v.encode('utf-8') if type(v) is unicode else v) for k, v in r.iteritems()))
         
-print df.head()
-csv_file.close()
+print df
+# csv_file.close()
 
 
 
