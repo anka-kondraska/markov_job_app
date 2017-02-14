@@ -1,7 +1,7 @@
 from random import choice
 import sys
 
-file_path = sys.argv[1]
+# file_path = sys.argv[1]
 
 def open_and_read_file(file_path):
     """Takes file path as string; returns text as string.
@@ -57,48 +57,56 @@ def make_text(chains):
     #check length of key and use that for the number of items in the tuple
 
     tuple_seed = choice(chains.keys())
+    
+    print chains.keys()
 
-    #Pick a tuple seed
+    #Pick a tuple seed that starts with capital letter
     while tuple_seed[0][0].isupper() == False: 
         tuple_seed = choice(chains.keys())
-        
-    key_length = len(tuple_seed)    
+     
+    print "TUPPLE SEED",tuple_seed   
+    key_length = len(tuple_seed)
+    print "KEY LEN", key_length    
 
     text = []
     for index in range(key_length):
-            text.append(tuple_seed[index])  
-
-    # print text
+            text.append(tuple_seed[index]) 
+    print "TEXT AFTER KEY LENGTH", text 
 
     #loop
     while text[-1][-1] not in ".!?":
         #sets value_options to the tuple seed's values
         value_options = chains.get(tuple_seed)
+        print "Value OPtions",value_options
 
         #pick one of those values
         value_choice = choice(value_options)
+        print "Value Choice",value_choice
         
         text.append(value_choice)
-        print tuple_seed
+        
 
 ############################################
         tuple_list = text[-key_length:]
-        tuple_seed = tuple(tuple_list)   
+        print tuple_list
+        tuple_seed = tuple(tuple_list) 
+        print tuple_seed
+        print text  
 
     
     text_sentence = ' '.join(text)
-    return text_sentence
+    print text_sentence
 
 
 # input_path = "gettysburg.txt"
 
 # Open the file and turn it into one long string
-input_text = open_and_read_file(file_path)
+# input_text = open_and_read_file(file_path)
 
 # Get a Markov chain
-chains = make_chains(input_text, 2)
+# chains = make_chains(input_text, 2)
 
 # Produce random text
-random_text = make_text(chains)
+# random_text = make_text(chains)
 
-print random_text
+# print random_text
